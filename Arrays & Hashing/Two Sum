@@ -1,0 +1,26 @@
+1. Create an unordered map.
+2. Loop over all the items in the vector nums.
+3. In every iteration set the complement number to target-number[i]
+4. Check to see if our map contains that complement number.
+5. If it contains that number return the vector position for the complment number and the loop position(i). 
+6. push the current number[i] into the map and set it's value to i.
+7. repeat the process until we went through the entire vector.
+8. Return {}, meaning we cannot find two numbers that add up to the target in our vector.
+
+Time Complexity: O(N)
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> map;
+        for (int i = 0; i <nums.size(); i++){
+            int complement_num = target-nums[i];
+            if(map.count(complement_num)>=1)
+            {
+                return {map[complement_num], i};
+            }
+            map[nums[i]] = i;
+        }
+        return {};
+    }
+};
