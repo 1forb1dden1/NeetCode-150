@@ -7,6 +7,8 @@
 - If we find a key value pair that has a value that is not 0 then it is certain it is not a anagram as a letter has appeared more times on one string than another. 
 5. Return false if a key value pair is found with a value that is not 0, and return true otherwise. 
 
+Time Complexity: O(N*M); 
+
 class Solution {
 public:
     bool isAnagram(string s, string t) {
