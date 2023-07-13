@@ -1,0 +1,27 @@
+1. Create an hash table that stores key:value pair (char:int)
+- The char will be the characters of the string, the int will be the occurence of that character.
+2. Take the first string and push all of the characters that make up that string into the hash table.
+- count[s[i]]++ takes the key(s[i]) and increments the corresponding integer value by 1. 
+3. Take the second string and decrement all of the chars found in the hash table by 1. 
+4. Check to see if there are any keys with a value that is not 0. 
+- If we find a key value pair that has a value that is not 0 then it is certain it is not a anagram as a letter has appeared more times on one string than another. 
+5. Return false if a key value pair is found with a value that is not 0, and return true otherwise. 
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map<char, int> count;
+        for(int i = 0; i < s.length(); i++){
+            count[s[i]]++;
+        }
+        for(int j = 0; j < t.length(); j++){
+            count[t[j]]--;
+        }
+        for(int k = 0; k < count.size(); k++){
+            if(count[k]!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+};
