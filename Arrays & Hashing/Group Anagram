@@ -1,0 +1,33 @@
+The idea behind this solution is that if a word is an anagram of another word then they will always have the same sorted string and we can take advantage of this. 
+
+Approach: 
+1. Create an unordered hashmap that has a string key and a value that is a string vector.
+2. iterate through the input
+- create a tempoary string to store the string that is being pointed to during traversal. 
+- sort the string that is temporary string in alphabetical order.
+- push the string that is being pointed to in the hashmap with the key being the sorted string.
+3. Now our entire hashmap is filled out and we can use it to find our return vector for this function.
+4. Create a string vector that we can return.
+5. Build the vector traversing through the hashmap
+- for each iteration get the associated values from the key and push it into the vector. 
+6. Return the vector that we just built. 
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> map;
+
+        for(auto x: strs){
+            string word = x;
+            sort(word.begin(), word.end());
+            map[word].push_back(x);
+        }
+        vector<vector<string>> answer;
+        for(auto x: map){
+            answer.push_back(x.second); 
+            //x.second accesses the second value associated with the key/value pair for map
+        }
+
+        return answer;
+    }
+};
