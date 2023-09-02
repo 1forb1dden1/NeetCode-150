@@ -1,0 +1,49 @@
+1. push all values into a map from the vector with it's corresponding occurences
+key = number, value = occurences.
+2. push all the unique occurences into a vector. 
+3. organize the set in descending order(greatest to least). 
+4. loop through the two sets and push the keys in order based on their occurences in descending order to the res vector.
+5. shorten the res vector to only have k total elements.
+6. return res. 
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> map;
+        vector <int> map_values; 
+        vector<int> res; 
+
+        for(int i = 0; i< nums.size(); i++){
+            if (map.find(nums[i]) == map.end()) {
+                map[nums[i]] = 1;
+            } else {
+                map[nums[i]]++;
+            }
+        }
+
+        //occurences of a number is put into a set in ascending order. 
+        for(const auto& x: map){
+            //if doesn't find x in vector then push back
+            if (find(map_values.begin(), map_values.end(), x.second) == map_values.end()) {
+                map_values.push_back(x.second);
+            }
+        }
+
+        //sort to decescending values
+        sort(map_values.begin(), map_values.end(), greater<int>());
+
+        //push the keys into res in order of most frequent apperances
+        for(const auto& freq: map_values){
+            for(const auto& x : map){
+                if(x.second == freq){
+                    res.push_back(x.first);
+                }
+            }
+        }
+
+        //resize res to only have k values.
+        res.resize(k);
+
+        return res;
+    }
+};
