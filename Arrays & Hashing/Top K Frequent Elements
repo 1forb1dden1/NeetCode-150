@@ -1,3 +1,7 @@
+**NOT OPTIMAL**
+Average Case: O(N LOG N)
+Worst Case: O(N^2)
+
 1. push all values into a map from the vector with it's corresponding occurences
 key = number, value = occurences.
 2. push all the unique occurences into a vector. 
