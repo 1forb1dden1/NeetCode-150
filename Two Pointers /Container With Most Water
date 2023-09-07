@@ -6,10 +6,17 @@ public:
         int maxArea = 0;
 
         while(left < right){
+            //right - left is the width
+            //min(height[left], height[right]) height of the water. 
+            //width * height = area of the water in the container.
             int currentArea = min(height[left], height[right]) * (right - left);
+
             if(maxArea < currentArea){
                 maxArea = currentArea;
             }
+            
+            //move the pointer based on which value is greater.
+            //we want to maximize our container so we need to move the smaller pointer one in an attempt to maximize the water held in the container.
             if (height[left] < height[right]){
                 left++;
             } else {
