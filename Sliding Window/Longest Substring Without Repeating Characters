@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        int maxLength = 0;
+        unordered_set<char> charSet;
+        int left = 0;
+        int right = 0;
+
+        //1. We will have both pointers starting in the 0 index & maxLength is 0.
+        //2. For each element we will walk with the right index so long as a character does not repeat.
+        //3 When a repetition occurs, we must move the left pointer so that the repetition is gone. In the worst case scenario the left will be pointing to the same spot as the right pointer.
+        //4 then we just push what the right pointer is pointing to inside the set.
+        while(right < n){
+            //if it is not inside then push it in.
+            if(charSet.count(s[right]) == 0){
+                charSet.insert(s[right]);
+                maxLength = max(maxLength, right - left + 1);
+            }else{
+                //as long as the character from the right exists in the substring
+                while(charSet.count(s[right])){
+                    //remove the character that the left is pointing to 
+                    charSet.erase(s[left]);
+                    //move the pointer from the left to the right. 
+                    left++;
+                }
+                charSet.insert(s[right]);
+            }
+            right++;
+        }
+        return maxLength;
+    }
+};
