@@ -1,0 +1,43 @@
+class MinStack {
+public:
+    MinStack() {
+        min = INT_MAX;
+    }
+    
+    void push(int val) {
+        if (Stack.empty() || val <= min) {
+            // If the stack is empty or the new value is less than or equal
+            // to the current min, update min and then push the value onto the stack.
+            Stack.push(min);
+            min = val;
+        }
+        Stack.push(val);
+    }
+
+    
+    void pop() {
+        if (Stack.top() == min) {
+            // If the top element is the current min, pop it,
+            // and update min by popping the next element.
+            Stack.pop();
+            min = Stack.top();
+            Stack.pop();
+        } else {
+            Stack.pop();
+        }
+        if (Stack.empty()) {
+            min = INT_MAX; // Stack is empty, reset min to INT_MAX.
+        }
+    }
+    
+    int top() {
+        return Stack.top();
+    }
+    
+    int getMin() {
+        return min; 
+    }
+private: 
+    stack<int> Stack;
+    int min;
+};
