@@ -1,0 +1,49 @@
+#include <string>
+//stoi converts to int
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> Stack;
+        for(int i = 0; i < tokens.size(); i++){
+            if (isOperator(tokens[i])) {
+                int number1 = 0;
+                int number2 = 0;
+                number1 = Stack.top();
+                Stack.pop();
+                number2 = Stack.top();
+                Stack.pop();
+                Stack.push(handleOperation(number2, number1, tokens[i]));
+            } else {
+                Stack.push(stoi(tokens[i]));
+            }
+        }
+        if(Stack.size() != 1){
+            throw invalid_argument("Invalid RPN expression");
+        }
+        return (Stack.top());
+    }
+private:
+    bool isOperator(string item){
+        if(item == "-" || item == "+" || item == "*" || item == "/"){
+            return true;
+        }
+        return false;
+    }
+
+    int handleOperation(int number1, int number2, string op){
+        if(op == "-"){
+            return number1-number2;
+        }
+        if(op == "+"){
+            return number1+number2;
+        }
+        if(op == "*"){
+            return number1*number2;
+        }
+        if(op == "/"){
+            return number1/number2;
+        }
+        return 0; 
+    }
+};
