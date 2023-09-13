@@ -1,43 +1,29 @@
 class MinStack {
 public:
     MinStack() {
-        min = INT_MAX;
+        int val;
     }
-    
     void push(int val) {
-        if (Stack.empty() || val <= min) {
-            // If the stack is empty or the new value is less than or equal
-            // to the current min, update min and then push the value onto the stack.
-            Stack.push(min);
-            min = val;
+        s1.push(val);
+        if(min_st.empty() || val <= min_st.top()){
+            min_st.push(val);
         }
-        Stack.push(val);
     }
-
-    
     void pop() {
-        if (Stack.top() == min) {
-            // If the top element is the current min, pop it,
-            // and update min by popping the next element.
-            Stack.pop();
-            min = Stack.top();
-            Stack.pop();
-        } else {
-            Stack.pop();
+        if(s1.top() == min_st.top()){ 
+           min_st.pop();
         }
-        if (Stack.empty()) {
-            min = INT_MAX; // Stack is empty, reset min to INT_MAX.
-        }
+        s1.pop(); 
     }
     
     int top() {
-        return Stack.top();
+        return s1.top();
     }
     
     int getMin() {
-        return min; 
+        return min_st.top();
     }
-private: 
-    stack<int> Stack;
-    int min;
+private:
+    stack<int>s1;
+    stack<int> min_st;
 };
