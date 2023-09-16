@@ -1,0 +1,26 @@
+/*Approach: push indexes into the stack and keep popping if the current temperature being pointed to in the loop is greater than the temperature on the top of the stack.
+
+Stack holds days of temperature.
+Index holds current day
+We will use this two piece of information to compare temperatures at the given day to determine in 0(1) time the time difference between the temperatures on the given day as well as the total days that's elapsed since the initial date. 
+*/
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures){
+        int n = temperatures.size();
+        vector<int> res(n, 0); 
+        stack<int> Stack;
+
+        for (int i = 0; i < n; i++){
+            while(!Stack.empty() && temperatures[i] > temperatures[Stack.top()]){
+                int j = Stack.top();
+                Stack.pop();
+                res[j] = i - j ;
+            }
+            Stack.push(i);
+        }
+
+        return res; 
+    }
+};
