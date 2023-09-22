@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr || head->next->next == nullptr){
+            return;
+        }
+
+        //we can use the stack to quickly access the node with the largest number. 
+        stack<ListNode*> Stack;
+        ListNode* dummy = head;
+        int size = 0;
+        while(dummy != nullptr){
+            size++; 
+            Stack.push(dummy);
+            dummy = dummy -> next; 
+        }
+
+        ListNode* res = head;
+        //cout << typeid(&Stack.top()).name() << endl;
+        //cout << typeid(Stack.top()).name() << endl;
+        
+        //Rebuild the linked list using the stack and the head. 
+        for(int i = 0; i < (size/2); i++){
+            ListNode *element = Stack.top();
+            Stack.pop();
+            element->next = res->next;
+            res->next = element;
+            res = res->next->next;
+        }
+        res->next = nullptr;
+    }
+};
