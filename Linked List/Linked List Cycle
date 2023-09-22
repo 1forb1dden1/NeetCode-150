@@ -1,0 +1,53 @@
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode(int x) : val(x), next(NULL) {}
+* };
+*/
+
+Solution 1 
+class Solution {
+public:
+    bool hasCycle(ListNode *head){
+        if(head == nullptr){
+            return false;
+        }
+        
+        set<ListNode*> map;
+        
+        while(head != nullptr){
+            if(map.count(head) > 0){
+                return true;
+            }
+            map.insert(head);
+            head = head->next;
+        }
+
+        return false;
+    }
+};
+
+Solution 2 Floyd's cycle-finding algorithm (tortoise & hare)
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (head == NULL) {
+            return false;
+        }
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while (fast->next != NULL && fast->next->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
