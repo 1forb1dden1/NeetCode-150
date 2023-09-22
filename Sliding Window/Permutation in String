@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char, int> Map;
+        int uniqueChars = 0;
+
+        for (char c : s1) {
+            if (Map[c] == 0) {
+                uniqueChars++;
+            }
+            Map[c]++;
+        }
+
+        int head = 0, tail = 0;
+        int windowSize = s1.size();
+
+        while (head < s2.size()) {
+            if (Map.find(s2[head]) != Map.end()) {
+                Map[s2[head]]--;
+                if (Map[s2[head]] == 0) {
+                    uniqueChars--;
+                }
+            }
+            head++;
+
+            // Check if the current window is valid
+            while (uniqueChars == 0) {
+
+                if (head - tail == windowSize) {
+                    return true;
+                }
+
+                // Shrink the window
+                if (Map.find(s2[tail]) != Map.end()) {
+                    Map[s2[tail]]++;
+                    if (Map[s2[tail]] > 0) {
+                        uniqueChars++;
+                    }
+                }
+                tail++;
+            }
+        }
+
+        return false;
+    }
+};
