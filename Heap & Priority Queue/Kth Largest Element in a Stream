@@ -1,0 +1,33 @@
+class KthLargest {
+public:
+    KthLargest(int k, vector<int>& nums) {
+        this->k = k;
+        //when pushed into pq it will auto sort itself in ascending order. 
+        for(int i = 0; i< nums.size(); i++){
+            pq.push(nums[i]);
+        }
+        //remove unecessary values from pq if it overflows past k. These numbers cannot be the kth largest value neither as the pq is sorted.
+        while (pq.size() > this->k){
+            pq.pop();
+        }
+    }
+    
+    int add(int val) {
+        pq.push(val);
+        if(pq.size() > k){
+            pq.pop();
+        }
+        return pq.top();
+    }
+
+private:
+    int k;
+    //priority_queue<specifies the type, which container, sort>
+    priority_queue<int, vector<int>, greater<int>> pq; 
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj->add(val);
+ */
