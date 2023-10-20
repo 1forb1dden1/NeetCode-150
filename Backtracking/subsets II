@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+    void dfs(set<vector<int>>& Set, vector<int> curr, vector<int> nums, int idx){
+        if(idx == nums.size()){
+            sort(curr.begin(), curr.end());
+            Set.insert(curr);
+            return;
+        }
+        curr.push_back(nums[idx]);
+        dfs(Set, curr, nums, idx+1);
+        curr.pop_back();
+        dfs(Set, curr, nums, idx+1);
+    }
+
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> res; 
+        vector<int> curr;
+        set<vector<int>> Set; 
+        dfs(Set, curr, nums, 0);
+        for(auto x : Set){
+            res.push_back(x);
+        }
+        return res; 
+    }
+};
